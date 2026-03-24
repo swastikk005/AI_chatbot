@@ -1,6 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0f0f1a;
+  --color-accent: #00c96b;
+  --color-card: #1a1a2e;
+}
 
 html,
 body,

@@ -7,9 +7,10 @@ interface ChatWindowProps {
     messages: Message[];
     isLoading: boolean;
     onSendMessage: (content: string) => void;
+    isSpeaking?: boolean;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isLoading, onSendMessage }) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isLoading, onSendMessage, isSpeaking }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const suggestions = [
@@ -28,6 +29,12 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isLoading, onSendMess
 
     const isEmpty = messages.length <= 1 && !isLoading;
 
+    // Find the last assistant message to highlight if speaking
+    const lastAssistantMessageIndex = [...messages].reverse().findIndex(m => m.role === 'assistant');
+    const lastAssistantMessageId = lastAssistantMessageIndex !== -1
+        ? messages[messages.length - 1 - lastAssistantMessageIndex].id
+        : null;
+
     return (
         <div
             ref={scrollRef}
@@ -35,13 +42,17 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isLoading, onSendMess
         >
             <div className="max-w-3xl mx-auto space-y-2">
                 {messages.map((message) => (
-                    <MessageBubble key={message.id} message={message} />
+                    <MessageBubble
+                        key={message.id}
+                        message={message}
+                        isSpoken={isSpeaking && message.id === lastAssistantMessageId}
+                    />
                 ))}
 
                 {/* Suggested Prompts */}
                 {isEmpty && (
                     <div className="mt-8 animate-fade-in px-12">
-                        <div className="flex items-center gap-2 mb-4 text-[#00c96b]/60">
+                        <div className="flex items-center gap-2 mb-4 text-[#38bdf8]/60">
                             <Sparkles size={16} />
                             <span className="text-xs font-semibold uppercase tracking-wider">Suggested for you</span>
                         </div>
@@ -50,7 +61,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isLoading, onSendMess
                                 <button
                                     key={i}
                                     onClick={() => onSendMessage(text)}
-                                    className="text-left px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-gray-300 hover:bg-[#00c96b]/10 hover:border-[#00c96b]/30 hover:text-white transition-all duration-200 group"
+                                    className="text-left px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-gray-300 hover:bg-[#38bdf8]/10 hover:border-[#38bdf8]/30 hover:text-white transition-all duration-200 group"
                                 >
                                     <span className="group-hover:translate-x-1 inline-block transition-transform duration-200">
                                         {text}
@@ -69,9 +80,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages, isLoading, onSendMess
                                 AI
                             </div>
                             <div className="px-4 py-3 bg-[#1a1a2e] border border-white/5 rounded-2xl rounded-bl-none shadow-md flex items-center gap-1.5">
-                                <span className="w-1.5 h-1.5 bg-[#00c96b] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                                <span className="w-1.5 h-1.5 bg-[#00c96b] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                                <span className="w-1.5 h-1.5 bg-[#00c96b] rounded-full animate-bounce"></span>
+                                <span className="w-1.5 h-1.5 bg-[#38bdf8] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                                <span className="w-1.5 h-1.5 bg-[#38bdf8] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                                <span className="w-1.5 h-1.5 bg-[#38bdf8] rounded-full animate-bounce"></span>
                             </div>
                         </div>
                     </div>
