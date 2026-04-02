@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import ChatWindow from './components/ChatWindow';
 import InputBar from './components/InputBar';
 import Sidebar from './components/Sidebar';
@@ -226,9 +226,6 @@ const App: React.FC = () => {
         sendMessage(`Switching neural architecture to ${name}, sir. Stand by.`);
     };
 
-    const handleSendMessage = (content: string, imageUrl?: string) => {
-        sendMessage(content, imageUrl, addTask);
-    };
 
     const handleSwitchPersona = (type: PersonaType) => {
         switchPersona(type);

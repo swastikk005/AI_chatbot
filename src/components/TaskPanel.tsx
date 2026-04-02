@@ -1,6 +1,5 @@
 import { CheckCircle2, Circle, Trash2, X, ClipboardList } from 'lucide-react';
 import { useTasks } from '../hooks/useTasks';
-import type { Task } from '../hooks/useTasks';
 
 interface TaskPanelProps {
     isOpen: boolean;
