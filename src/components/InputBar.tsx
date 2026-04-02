@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Mic, Paperclip, FileText, X, Loader2 } from 'lucide-react';
+import { Send, Mic, Paperclip, FileText, X } from 'lucide-react';
 import { useVoiceInput } from '../hooks/useVoiceInput';
 import { extractPDFText } from '../utils/pdf';
 
