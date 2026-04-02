@@ -77,7 +77,7 @@ export const useChat = () => {
         }
     };
 
-    const fetchStock = async (message: string): Promise<string> => {
+    const fetchStock = async (_message: string): Promise<string> => {
         return `
             [YAHOO FINANCE TELEMETRY FEED]
             NIFTY 50: 22,350 (+0.45%) | SENSEX: 73,600 (+0.32%)
@@ -96,15 +96,15 @@ export const useChat = () => {
         `;
     };
 
-    const fetchRoute = async (message: string): Promise<string> => {
+    const fetchRoute = async (_message: string): Promise<string> => {
         return `NAVIGATION DATA: Optimal route calculated. Pathfinding synced to HUD.`;
     };
 
-    const fetchSearch = async (message: string): Promise<string> => {
+    const fetchSearch = async (_message: string): Promise<string> => {
         return `SEARCH DATA: Global intelligence buffers synced. Initializing deep-sweep.`;
     };
 
-    const sendMessage = useCallback(async (content: string, visionImageUrl?: string, addTask?: (title: string, time?: string) => void) => {
+    const sendMessage = useCallback(async (content: string, _visionImageUrl?: string, addTask?: (title: string, time?: string) => void) => {
         const userMessage: Message = {
             id: Date.now().toString(),
             role: 'user',
